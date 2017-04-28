@@ -1,8 +1,10 @@
 ﻿
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Device.Location;
+using System.Windows.Media;
 
 namespace RasterOps
 {
@@ -42,8 +44,14 @@ namespace RasterOps
                 {
                     Tile tile = new Tile(tileNames[row, column]);
                     RasterGrid.addTile(column, row, tile);
+
+                    // This event is just to display X,Y coordinates
+                    // as the mouse moves over the tile
                     tile.MouseMove += Image_MouseMove;
-                    tile.MouseLeftButtonDown += Image_MouseLeftButtonDown;
+
+                    // This event is just to test replacing
+                    // a tile in the grid
+                    //tile.MouseLeftButtonDown += Image_MouseLeftButtonDown;
                 }
             }
             
@@ -86,6 +94,8 @@ namespace RasterOps
             }
             return column;
         }
+
+        #region Mouse Events
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
@@ -132,7 +142,9 @@ namespace RasterOps
             Point c = tile.px2coord(p);
             GeoCoordinate ll = tile.coord2LatLon(c);
             LatLon.Text = ll.Latitude.ToString("F6") + "," + ll.Longitude.ToString("F6");
-
+            
         }
+
+        #endregion
     }
 }

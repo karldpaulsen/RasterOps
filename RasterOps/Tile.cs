@@ -58,6 +58,8 @@ namespace RasterOps
             this.Source = img;
         }
 
+        # region Coordinate Transformations
+
         // Does a transformation between display points
         // and east,north point in the rasters spatial
         // system
@@ -114,6 +116,8 @@ namespace RasterOps
 
             return new Point(p[0], p[1]);
         }
+
+        #endregion
 
     }
 }
