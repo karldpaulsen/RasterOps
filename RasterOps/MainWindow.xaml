@@ -5,43 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RasterOps"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="1024" Width="1024">
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:ZoomBorder x:Name="Display" ClipToBounds="True" Grid.Row="0" Background="Beige" MouseMove="MainWindow_MouseMove">
-            <Grid x:Name="RasterGrid" ClipToBounds="True" ShowGridLines="True" Background="Transparent" MouseMove="Grid_MouseMove" MouseLeftButtonDown="RasterGrid_MouseLeftButtonDown">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="256"/>
-                    <ColumnDefinition Width="256"/>
-                    <ColumnDefinition Width="256"/>
-                    <ColumnDefinition Width="256"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="256"/>
-                    <RowDefinition Height="256"/>
-                    <RowDefinition Height="256"/>
-                    <RowDefinition Height="256"/>
-                </Grid.RowDefinitions>
-                <Image Grid.Column="0" Grid.Row ="0" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="1" Grid.Row ="0" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="2" Grid.Row ="0" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="3" Grid.Row ="0" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="0" Grid.Row ="1" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="1" Grid.Row ="1" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="2" Grid.Row ="1" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="3" Grid.Row ="1" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="0" Grid.Row ="2" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="1" Grid.Row ="2" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="2" Grid.Row ="2" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="3" Grid.Row ="2" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="0" Grid.Row ="3" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="1" Grid.Row ="3" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="2" Grid.Row ="3" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                <Image Grid.Column="3" Grid.Row ="3" MouseMove="Image_MouseMove" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-            </Grid>
+            <local:TileSet x:Name="RasterGrid" ClipToBounds="True" ShowGridLines="True" Background="Transparent" 
+                           MouseMove="Grid_MouseMove" Grid.Row="0" cellHeight="256" cellWidth="256" rows="4" columns="4"/>
         </local:ZoomBorder>
         <Grid x:Name="StatusBar" Grid.Row="1">
             <Grid.ColumnDefinitions>

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Device.Location;
 
 namespace RasterOps
@@ -21,7 +11,6 @@ namespace RasterOps
     /// </summary>
     public partial class MainWindow : Window
     {
-        TileSet mySet = new TileSet(4, 4);
 
         public MainWindow()
         {
@@ -46,25 +35,18 @@ namespace RasterOps
                       "g:/Sectionals/slc/slc-003-013.tif" }
                 };
 
+            
             for (int row = 0; row < 4; row++)
             {
                 for (int column = 0; column < 4; column++)
                 {
                     Tile tile = new Tile(tileNames[row, column]);
-                    mySet.addTile(column, row, tile);
-
-                    Image image = getCell(column, row, RasterGrid);
-                    image.Source = tile.Source;
+                    RasterGrid.addTile(column, row, tile);
+                    tile.MouseMove += Image_MouseMove;
+                    tile.MouseLeftButtonDown += Image_MouseLeftButtonDown;
                 }
             }
-        }
-
-        private Image getCell(int col, int row, Grid grid)
-        {
-            Image image = (Image)grid.Children.Cast<UIElement>().
-                  First(el => Grid.GetRow(el) == row && Grid.GetColumn(el) == col);
-
-            return image;
+            
         }
 
         private void MainWindow_MouseMove(object sender, MouseEventArgs e)
@@ -122,7 +104,8 @@ namespace RasterOps
             p = e.GetPosition(RasterGrid);
             int row = getRow(p);
             int col = getColumn(p);
-            Tile tile = mySet.getTile(col, row);
+            Tile tile = RasterGrid.getTile(col, row);
+
             Point c = tile.px2coord(p);
             GeoCoordinate ll = tile.coord2LatLon(c);
             LatLon.Text = ll.Latitude.ToString("F6") + "," + ll.Longitude.ToString("F6");
@@ -143,10 +126,8 @@ namespace RasterOps
             int column = getColumn(p);
 
             Tile tile = new Tile("g:/Sectionals/slc/slc-040-043.tif");
-            mySet.addTile(column, row, tile);
-
-            Image image = getCell(column, row, RasterGrid);
-            image.Source = tile.Source;
+            tile.MouseMove += Image_MouseMove;
+            RasterGrid.replaceTile(column, row, tile);
 
             Point c = tile.px2coord(p);
             GeoCoordinate ll = tile.coord2LatLon(c);
